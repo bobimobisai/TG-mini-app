@@ -28,6 +28,8 @@
 
 !!! Скопируйте домен из терминала который https и вставьте в .env HTTPS_URL
 Должен выглядеть так https://a3fc-94-181-225-220.ngrok-free.app
+
+
 4. **пример**
     ```
     Found a bug? Let us know: https://github.com/ngrok/ngrok
