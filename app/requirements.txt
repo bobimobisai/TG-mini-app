@@ -2,5 +2,10 @@ fastapi
 uvicorn
 sqlalchemy
 asyncpg
-psycopg2
+psycopg2-binary
+psycopg
+psycopg-binary
+pydantic_settings
+alembic
 pydantic
+aiogram

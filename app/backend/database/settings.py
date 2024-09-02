@@ -9,6 +9,11 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
     SECRET_KEY: str
+    HTTPS_URL: str
+
+    @property
+    def HTTPS_URL(self):
+        return self.HTTPS_URL
 
     @property
     def SECRET_KEY(self):

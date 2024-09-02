@@ -4,8 +4,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from backend.database.settings import settings
 from aiogram.filters import Command
 import logging
-import jwt
-import datetime
 
 
 logging.basicConfig(level=logging.INFO)
@@ -31,7 +29,7 @@ async def send_welcome(message: types.Message):
         f"{key}={value if value is not None else 'none'}"
         for key, value in user_data.items()
     )
-    web_app_url = f"https://16cd-94-181-225-220.ngrok-free.app/?{query_params}"
+    web_app_url = f"{settings.HTTPS_URL}/?{query_params}"
 
     web_app = WebAppInfo(url=web_app_url)
     markup = InlineKeyboardMarkup(

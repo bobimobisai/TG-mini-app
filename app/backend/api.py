@@ -1,6 +1,7 @@
 import logging
 import os
 from typing import List
+from aiogram.types import BotCommand
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -31,6 +32,9 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 @app.on_event("startup")
 async def on_startup():
     async def start_polling():
+        await bot.set_my_commands(
+            [
+                BotCommand(command="start", description="Start"),])
         await dp.start_polling(bot)
 
     loop = asyncio.get_event_loop()

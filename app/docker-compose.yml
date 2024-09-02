@@ -23,13 +23,4 @@ services:
     ports:
       - "8050:8050"
 
-  ngrok:
-    build:
-      context: .
-      dockerfile: Dockerfile.ngrok
-    container_name: mini_app_ngrok
-    depends_on:
-      - python-app
-    ports:
-      - "4040:4040"
-    entrypoint: ["/bin/bash", "/get_ngrok_url.sh"]
+
