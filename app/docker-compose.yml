@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: mini_app_db
+    environment:
+      POSTGRES_USER: ivan
+      POSTGRES_PASSWORD: mini_app_1712
+      POSTGRES_DB: mini_app_db
+    ports:
+      - "8489:5432"
+    restart: always
+
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mini_app_python
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8050:8050"
+
+  ngrok:
+    build:
+      context: .
+      dockerfile: Dockerfile.ngrok
+    container_name: mini_app_ngrok
+    depends_on:
+      - python-app
+    ports:
+      - "4040:4040"
+    entrypoint: ["/bin/bash", "/get_ngrok_url.sh"]
