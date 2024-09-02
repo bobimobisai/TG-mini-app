@@ -1,5 +1,0 @@
-authtoken: 2TiRWPzg9P0JQfnxBYcrZsLJ2Rs_61SGxkBEabwZU3KYo2mNE
-tunnels:
-  http:
-    proto: http
-    addr: 8000
