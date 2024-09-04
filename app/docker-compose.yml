@@ -8,6 +8,6 @@ services:
     container_name: mini_app_python
     restart: always
     ports:
-      - "8050:8050"
+      - "8000:8000"
 
 
