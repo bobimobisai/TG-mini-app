@@ -11,15 +11,14 @@ services:
     ports:
       - "8489:5432"
     restart: always
+
   python-app:
     build:
       context: .
-      depends_on:
-        - db
       dockerfile: Dockerfile
+    depends_on:
+      - db
     container_name: mini_app_python
     restart: always
     ports:
       - "8000:8000"
-
-
