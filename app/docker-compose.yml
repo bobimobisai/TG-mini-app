@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: mini_app_python
-    depends_on:
-      - db
     restart: always
     ports:
       - "8050:8050"
