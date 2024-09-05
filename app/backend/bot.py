@@ -4,7 +4,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from backend.database.settings import settings
 from aiogram.filters import Command
 import logging
-
+import jwt
+import datetime
 
 logging.basicConfig(level=logging.INFO)
 
@@ -12,6 +13,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=settings.TG_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 
+def generate_jwt(data, secret_key):
+    payload = data.copy()
+    payload["exp"] = datetime.datetime.utcnow() + datetime.timedelta(minutes=15)  # Время жизни токена
+    token = jwt.encode(payload, secret_key, algorithm="HS256")
+    return token
 
 @dp.message(Command("start"))
 async def send_welcome(message: types.Message):
@@ -24,13 +30,9 @@ async def send_welcome(message: types.Message):
         "created_at": None, 
         "updated_at": None,
     }
-
-    query_params = "&".join(
-        f"{key}={value if value is not None else 'none'}"
-        for key, value in user_data.items()
-    )
-    web_app_url = f"{settings.HTTPS_URL}/?{query_params}"
-
+    secret_key = "your_secret_key"
+    token = generate_jwt(user_data, secret_key)
+    web_app_url = f"{settings.HTTPS_URL}/?token={token}"
     web_app = WebAppInfo(url=web_app_url)
     markup = InlineKeyboardMarkup(
         inline_keyboard=[[InlineKeyboardButton(text="Open Mini App", web_app=web_app)]]
